@@ -4,7 +4,7 @@ import { Color } from 'pixel_combats/basic';
 
 // настройки
 var WaitingPlayersTime = 10;
-var BuildBaseTime = 60;
+var BuildBaseTime = 30;
 var GameModeTime = 300;
 var DefPoints = GameModeTime * 0.2;
 var EndOfMatchTime = 10;
@@ -362,13 +362,6 @@ Spawns.GetContext().OnSpawn.Add(function (player) {
 Timers.OnPlayerTimer.Add(function (timer) {
         if (timer.Id != immortalityTimerName) return;
         timer.Player.Properties.Immortality.Value = false;
-});
-
-// если в команде количество смертей занулилось то завершаем игру
-Properties.OnTeamProperty.Add(function (context, value) {
-        if (context.Team != blueTeam) return;
-        if (value.Name !== "Deaths") return;
-        if (value.Value <= 0) RedWin();
 });
 
 // счетчик спавнов
