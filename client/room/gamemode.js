@@ -148,7 +148,6 @@ capturedAreaIndexProp.OnValue.Add(function (prop) {
         var index = prop.Value;
         var spawns = Spawns.GetContext(redTeam);
         // очистка спавнов
-        spawns.CustomSpawnPoints.Clear();
         // если нет захвата то сброс спавнов
         if (index < 0 || index >= captureAreas.length) return;
         // задаем спавны
@@ -304,12 +303,12 @@ var redTeam = teams.create_team_red();
 blueTeam.Build.BlocksSet.Value = BuildBlocksSet.Blue;
 redTeam.Build.BlocksSet.Value = BuildBlocksSet.Red;
 
-// делаем моментальный спавн синим
+// делаем моментальный спавн красным
 blueTeam.Spawns.RespawnTime.Value = 10;
 redTeam.Spawns.RespawnTime.Value = 0;
 
 // задаем макс очкой синей команды
-//var maxDeaths = Players.MaxCount * 5;
+//var maxDeaths = 10;
 blueTeam.Properties.Get("Deaths").Value = DefPoints;
 //redTeam.Properties.Get("Deaths").Value = maxDeaths;
 // задаем что выводить в лидербордах
@@ -323,11 +322,6 @@ LeaderBoard.PlayerLeaderBoardValues = [
                 Value: "Deaths",
                 DisplayName: "Statistics/Deaths",
                 ShortDisplayName: "Statistics/DeathsShort"
-        },
-        {
-                Value: "Spawns",
-                DisplayName: "Statistics/Spawns",
-                ShortDisplayName: "Statistics/SpawnsShort"
         },
         {
                 Value: "Scores",
@@ -347,6 +341,14 @@ LeaderBoard.PlayersWeightGetter.Set(function (player) {
 
 // задаем что выводить вверху
 Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "Deaths" };
+Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "props" }; 
+
+redTeam.Properties.Get("Points").Value = 0;
+blueTeam.Properties.Get("Points").Value = 0;
+
+Properties.OnTeamProperty.Add(function(context, value){
+    redTeam.Properties.Get("prop").Value = "Blue:"+blueTeamProperties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
+});
 
 // разрешаем вход в команды по запросу
 Teams.OnRequestJoinTeam.Add(function (player, team) { team.Add(player); });
@@ -364,13 +366,11 @@ Timers.OnPlayerTimer.Add(function (timer) {
         timer.Player.Properties.Immortality.Value = false;
 });
 
-// счетчик спавнов
-Spawns.OnSpawn.Add(function (player) {
-        ++player.Properties.Spawns.Value;
-});
 // счетчик смертей
 Damage.OnDeath.Add(function (player) {
         ++player.Properties.Deaths.Value;
+        if(player.Team == "Blue") redTeam.Properties.Get("Points").Value++;
+        if(player.Team == "Red") blueTeam.Properties.Get("Points").Value++;
 });
 // счетчик убийств
 Damage.OnKill.Add(function (player, killed) {
