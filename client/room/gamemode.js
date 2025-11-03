@@ -330,9 +330,9 @@ LeaderBoard.PlayerLeaderBoardValues = [
         }
 ];
 LeaderBoard.TeamLeaderBoardValue = {
-        Value: "Deaths",
-        DisplayName: "Statistics\Deaths",
-        ShortDisplayName: "Statistics\Deaths"
+        Value: "Scores",
+        DisplayName: "Statistics\Scores",
+        ShortDisplayName: "Statistics\Scores"
 };
 // вес игрока в лидерборде
 LeaderBoard.PlayersWeightGetter.Set(function (player) {
