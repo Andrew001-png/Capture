@@ -330,9 +330,9 @@ LeaderBoard.PlayerLeaderBoardValues = [
         }
 ];
 LeaderBoard.TeamLeaderBoardValue = {
-        Value: "Scores",
-        DisplayName: "Statistics\Scores",
-        ShortDisplayName: "Statistics\Scores"
+        Value: "Deaths",
+        DisplayName: "Statistics\Deaths",
+        ShortDisplayName: "Statistics\Deaths"
 };
 // вес игрока в лидерборде
 LeaderBoard.PlayersWeightGetter.Set(function (player) {
@@ -343,14 +343,14 @@ LeaderBoard.PlayersWeightGetter.Set(function (player) {
 Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "Deaths" };
 Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "props" }; 
 
-redTeam.Properties.Scores.Value = 0;
-blueTeam.Properties.Scores.Value = 0;
+redTeam.Properties.Get("Points").Value = 0;
+blueTeam.Properties.Get("Points").Value = 0;
 
-redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Scores.Value+"\nRed:"+redTeam.Properties.Scores.Value;
+redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
 
 Properties.OnTeamProperty.Add(function(context, value){
     if(value.Name == "Points"){
-        redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Scores.Value+"\nRed:"+redTeam.Properties.Scores.Value;
+        redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
     }
 });
 
@@ -373,8 +373,8 @@ Timers.OnPlayerTimer.Add(function (timer) {
 // счетчик смертей
 Damage.OnDeath.Add(function (player) {
         ++player.Properties.Deaths.Value;
-        if(player.Team == blueTeam) redTeam.Properties.Scores.Value += 1;
-        if(player.Team == redTeam) blueTeam.Properties.Scores.Value += 1;
+        if(player.Team == blueTeam) redTeam.Properties.Get("Points").Value += 1;
+        if(player.Team == redTeam) blueTeam.Properties.Get("Points").Value += 1;
 });
 
 // счетчик убийств
