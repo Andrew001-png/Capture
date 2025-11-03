@@ -6,7 +6,7 @@ import { Color } from 'pixel_combats/basic';
 var WaitingPlayersTime = 10;
 var BuildBaseTime = 30;
 var GameModeTime = 300;
-var DefPoints = 10
+var DefPoints = 15
 var EndOfMatchTime = 10;
 var DefPointsMaxCount = 30;
 var DefTimerTickInderval = 1;
@@ -239,6 +239,7 @@ function DefTriggerUpdate() {
 
         // если есть хоть один красный то очки отнимаются
         blueTeam.Properties.Get("Deaths").Value -= redCount;
+        if(blueTeam.Properties.Get("Deaths").Value <=0) RedWin();
         // синим идет подсказка что зону захватывают
         if (stateProp.Value == GameStateValue)
                 blueTeam.Ui.Hint.Value = YourAreaIsCapturing;
@@ -330,9 +331,9 @@ LeaderBoard.PlayerLeaderBoardValues = [
         }
 ];
 LeaderBoard.TeamLeaderBoardValue = {
-        Value: "Deaths",
-        DisplayName: "Statistics\Deaths",
-        ShortDisplayName: "Statistics\Deaths"
+        Value: "Scores",
+        DisplayName: "Statistics\Scores",
+        ShortDisplayName: "Statistics\Scores"
 };
 // вес игрока в лидерборде
 LeaderBoard.PlayersWeightGetter.Set(function (player) {
