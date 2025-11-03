@@ -347,7 +347,9 @@ redTeam.Properties.Get("Points").Value = 0;
 blueTeam.Properties.Get("Points").Value = 0;
 
 Properties.OnTeamProperty.Add(function(context, value){
+    if(value.Name == "props"){
     redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
+    }
 });
 
 // разрешаем вход в команды по запросу
