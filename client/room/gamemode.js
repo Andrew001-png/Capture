@@ -486,7 +486,7 @@ function BlueWin() {
         var spawns = Spawns.GetContext();
         spawns.enable = false;
         spawns.Despawn();
-        Game.GameOver(blueTeam);
+        Game.GameOver();
         mainTimer.Restart(EndOfMatchTime);
 }
 function RedWin() {
