@@ -373,8 +373,8 @@ Timers.OnPlayerTimer.Add(function (timer) {
 // счетчик смертей
 Damage.OnDeath.Add(function (player) {
         ++player.Properties.Deaths.Value;
-        if(player.Team == "Blue") redTeam.Properties.Get("Points").Value++;
-        if(player.Team == "Red") blueTeam.Properties.Get("Points").Value++;
+        if(player.Team == "Blue") redTeam.Properties.Get("Points").Value += 1;
+        if(player.Team == "Red") blueTeam.Properties.Get("Points").Value += 1;
 });
 
 // счетчик убийств
