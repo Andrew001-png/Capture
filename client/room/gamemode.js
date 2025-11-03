@@ -347,7 +347,7 @@ redTeam.Properties.Get("Points").Value = 0;
 blueTeam.Properties.Get("Points").Value = 0;
 
 Properties.OnTeamProperty.Add(function(context, value){
-    redTeam.Properties.Get("prop").Value = "Blue:"+blueTeamProperties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
+    redTeam.Properties.Get("props").Value = "Blue:"+blueTeamProperties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
 });
 
 // разрешаем вход в команды по запросу
@@ -372,6 +372,7 @@ Damage.OnDeath.Add(function (player) {
         if(player.Team == "Blue") redTeam.Properties.Get("Points").Value++;
         if(player.Team == "Red") blueTeam.Properties.Get("Points").Value++;
 });
+
 // счетчик убийств
 Damage.OnKill.Add(function (player, killed) {
         if (killed.Team != null && killed.Team != player.Team) {
