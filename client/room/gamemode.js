@@ -6,7 +6,7 @@ import { Color } from 'pixel_combats/basic';
 var WaitingPlayersTime = 10;
 var BuildBaseTime = 30;
 var GameModeTime = 300;
-var DefPoints = GameModeTime * 0.2;
+var DefPoints = 10
 var EndOfMatchTime = 10;
 var DefPointsMaxCount = 30;
 var DefTimerTickInderval = 1;
