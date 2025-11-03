@@ -343,14 +343,14 @@ LeaderBoard.PlayersWeightGetter.Set(function (player) {
 Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "Deaths" };
 Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "props" }; 
 
-redTeam.Properties.Get("Points").Value = 0;
-blueTeam.Properties.Get("Points").Value = 0;
+redTeam.Properties.Scores.Value = 0;
+blueTeam.Properties.Scores.Value = 0;
 
-redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
+redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Scores.Value+"\nRed:"+redTeam.Properties.Scores.Value;
 
 Properties.OnTeamProperty.Add(function(context, value){
     if(value.Name == "Points"){
-        redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Get("Points").Value+"\nRed:"+redTeam.Properties.Get("Points").Value;
+        redTeam.Properties.Get("props").Value = "Blue:"+blueTeam.Properties.Scores.Value+"\nRed:"+redTeam.Properties.Scores.Value;
     }
 });
 
@@ -373,8 +373,8 @@ Timers.OnPlayerTimer.Add(function (timer) {
 // счетчик смертей
 Damage.OnDeath.Add(function (player) {
         ++player.Properties.Deaths.Value;
-        if(player.Team == blueTeam) redTeam.Properties.Get("Points").Value += 1;
-        if(player.Team == redTeam) blueTeam.Properties.Get("Points").Value += 1;
+        if(player.Team == blueTeam) redTeam.Properties.Scores.Value += 1;
+        if(player.Team == redTeam) blueTeam.Properties.Scores.Value += 1;
 });
 
 // счетчик убийств
@@ -486,7 +486,7 @@ function BlueWin() {
         var spawns = Spawns.GetContext();
         spawns.enable = false;
         spawns.Despawn();
-        Game.GameOver();
+                Game.GameOver(LeaderBoard.GetTeams());
         mainTimer.Restart(EndOfMatchTime);
 }
 function RedWin() {
