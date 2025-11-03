@@ -5,12 +5,11 @@ import { Color } from 'pixel_combats/basic';
 // настройки
 var WaitingPlayersTime = 10;
 var BuildBaseTime = 30;
-var GameModeTime = 3000;
+var GameModeTime = 1800;
 var DefPoints = 15;
 var EndOfMatchTime = 10;
 var DefPointsMaxCount = 30;
 var DefTimerTickInderval = 1;
-var SavePointsCount = 10;
 var RepairPointsBySecond = 0.5;
 var CapturePoints = 10;                // сколько очков нужно для захвата
 var MaxCapturePoints = 15;        // сколько макс очков
@@ -229,7 +228,7 @@ function DefTriggerUpdate() {
         // если красных нет в зоне то восстанавливаются очки
         if (redCount == 0) {
                 // восстанавливаем очки до несгораемой суммы
-                if (blueTeam.Properties.Get("Deaths").Value % SavePointsCount != 0)
+                if (blueTeam.Properties.Get("Deaths").Value != 0)
                         blueTeam.Properties.Get("Deaths").Value += RepairPointsBySecond;
                 // синим идет подска об обороне зоны
                 if (stateProp.Value == GameStateValue)
